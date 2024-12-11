@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.pivco.Data.Person
 import com.example.pivco.Fragments.HomeFragment
 import com.example.pivco.Fragments.LoginFragment
 import com.example.pivco.Fragments.OnboardFragment
@@ -45,9 +46,16 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun navigateToHome() {
+    fun navigateToHome(person: Person) {
+        val fragment = HomeFragment().apply {
+            val bundle = Bundle().apply {
+                putSerializable("person", person)
+            }
+            arguments = bundle
+        }
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, HomeFragment())
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
             .commit()
     }
 }

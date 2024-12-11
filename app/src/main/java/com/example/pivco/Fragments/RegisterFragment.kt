@@ -27,29 +27,20 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonEnter.setOnClickListener {
-            val mailText = binding.editTextTextEmailAddress.text.toString()
+            val mailText1 = binding.editTextTextEmailAddress.text.toString()
             val passwordText1 = binding.editTextNumberPassword.text.toString()
             val passwordText2 = binding.editTextNumberPassword2.text.toString()
 
             if (passwordText1 == passwordText2) {
-                val person = Person(mailText, passwordText1)
+                val person = Person(mailText1, passwordText1)
                 Person.list.add(person)
 
-                val bundle = Bundle().apply {
-                    putSerializable("person", person)
-                }
-
-                val fragment = HomeFragment().apply {
-                    arguments = bundle
-                }
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit()
+                (activity as? MainActivity)?.navigateToHome(person)
             } else {
                 binding.incorrect.text = "Пароли не совпадают!"
             }
         }
+
     }
 
 

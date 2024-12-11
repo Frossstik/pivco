@@ -35,17 +35,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 if (mailText == person.mail && passwordText == person.password) {
                     isAuthenticated = true
 
-                    val bundle = Bundle().apply {
-                        putSerializable("person", person)
-                    }
-
-                    val fragment = HomeFragment().apply {
-                        arguments = bundle
-                    }
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, fragment)
-                        .addToBackStack(null)
-                        .commit()
+                    (activity as? MainActivity)?.navigateToHome(person)
                     break
                 }
             }
@@ -54,6 +44,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 binding.incorrect.text = "Неверный email или пароль!"
             }
         }
+
     }
 
 
